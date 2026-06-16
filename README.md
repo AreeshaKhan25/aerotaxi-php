@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="public/images/Poster.png" alt="AeroTAXI Banner" width="100%">
-</p>
-
 <h1 align="center">AeroTAXI — Classical PHP Edition</h1>
 
 <p align="center">
@@ -17,6 +13,11 @@
 </p>
 
 ---
+<p align="center">
+  <img src="public/images/Poster.png" alt="AeroTAXI Banner" width="100%">
+</p>
+
+
 
 ## 📖 Overview
 
