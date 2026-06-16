@@ -1,0 +1,21 @@
+{
+    "name": "aerotaxi/aerotaxi-php",
+    "description": "Classical PHP port of AeroTAXI airport transfers booking system",
+    "type": "project",
+    "require": {
+        "php": "^8.0",
+        "stripe/stripe-php": "^12.0",
+        "phpmailer/phpmailer": "^7.1"
+    },
+    "autoload": {
+        "files": [
+            "core/database.php",
+            "core/helpers.php",
+            "core/router.php"
+        ]
+    },
+    "scripts": {
+        "serve": "php -S localhost:8000 -t public",
+        "lint": "php -l public/index.php"
+    }
+}

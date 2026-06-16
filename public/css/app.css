@@ -1,0 +1,19 @@
+/* AeroTAXI - Custom CSS (Tailwind overrides / custom colors) */
+/* These match the Tailwind config from the Laravel project */
+
+.bg-cream { background-color: #faf8f5; }
+.bg-lightgreen { background-color: #e8f5e8; }
+.bg-primary { background-color: #eab308; }
+.bg-primary\/10 { background-color: rgba(234, 179, 8, 0.1); }
+.bg-primary\/5 { background-color: rgba(234, 179, 8, 0.05); }
+.text-primary { color: #eab308; }
+.text-primary\/80 { color: rgba(234, 179, 8, 0.8); }
+.border-primary { border-color: #eab308; }
+.ring-primary { --tw-ring-color: #eab308; }
+.hover\:text-primary\/80:hover { color: rgba(234, 179, 8, 0.8); }
+.bg-primary\/\[0\.03\] { background-color: rgba(234, 179, 8, 0.03); }
+.bg-primary\/\[0\.06\] { background-color: rgba(234, 179, 8, 0.06); }
+.group-hover\:bg-primary\/\[0\.06\]:hover { background-color: rgba(234, 179, 8, 0.06); }
+
+/* Alpine.js cloak */
+[x-cloak] { display: none !important; }

@@ -1,0 +1,134 @@
+-- AeroTAXI Database Schema
+-- Created for classical PHP version (exact port from Laravel)
+-- Database: aerotaxi
+
+CREATE DATABASE IF NOT EXISTS aerotaxi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE aerotaxi;
+
+-- ===== AIRPORTS TABLE =====
+CREATE TABLE IF NOT EXISTS airports (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  code VARCHAR(10) UNIQUE NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  city VARCHAR(255) NOT NULL,
+  country VARCHAR(255) NOT NULL,
+  description TEXT,
+  image VARCHAR(255),
+  sort_order INT DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_code (code),
+  INDEX idx_sort_order (sort_order)
+) ENGINE=InnoDB;
+
+-- ===== VEHICLES TABLE =====
+CREATE TABLE IF NOT EXISTS vehicles (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) UNIQUE,
+  price DECIMAL(8, 2) NOT NULL,
+  short_base DECIMAL(8, 2) NOT NULL DEFAULT 0,
+  short_per_mile DECIMAL(8, 2) NOT NULL DEFAULT 0,
+  long_base DECIMAL(8, 2) NOT NULL DEFAULT 0,
+  long_per_mile DECIMAL(8, 2) NOT NULL DEFAULT 0,
+  passengers INT DEFAULT 4,
+  suitcases INT DEFAULT 2,
+  hand_luggage_note TEXT,
+  image VARCHAR(255),
+  description TEXT,
+  car_model VARCHAR(255),
+  sort_order INT DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_sort_order (sort_order)
+) ENGINE=InnoDB;
+
+-- ===== FAQS TABLE =====
+CREATE TABLE IF NOT EXISTS faqs (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  question VARCHAR(255) NOT NULL,
+  answer LONGTEXT NOT NULL,
+  sort_order INT DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_sort_order (sort_order)
+) ENGINE=InnoDB;
+
+-- ===== BOOKINGS TABLE =====
+CREATE TABLE IF NOT EXISTS bookings (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  reference VARCHAR(255) UNIQUE NOT NULL,
+  from_location VARCHAR(255) NOT NULL,
+  to_location VARCHAR(255) NOT NULL,
+  depart_date DATE NOT NULL,
+  depart_time VARCHAR(10),
+  vehicle_id BIGINT UNSIGNED NOT NULL,
+  passenger_name VARCHAR(255),
+  email VARCHAR(255),
+  phone VARCHAR(50),
+  flight_number VARCHAR(20),
+  note_to_driver TEXT,
+  country_code VARCHAR(10),
+  status VARCHAR(50) DEFAULT 'pending',
+  payment_status VARCHAR(50) DEFAULT 'unpaid',
+  payment_id VARCHAR(255),
+  total_price DECIMAL(8, 2),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (vehicle_id) REFERENCES vehicles(id) ON DELETE CASCADE,
+  INDEX idx_reference (reference),
+  INDEX idx_status (status),
+  INDEX idx_payment_status (payment_status),
+  INDEX idx_email (email)
+) ENGINE=InnoDB;
+
+-- ===== CONTACT MESSAGES TABLE =====
+CREATE TABLE IF NOT EXISTS contact_messages (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  subject VARCHAR(255),
+  message LONGTEXT NOT NULL,
+  `read` TINYINT(1) DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_email (email),
+  INDEX idx_read (`read`)
+) ENGINE=InnoDB;
+
+-- ===== SUBSCRIBERS TABLE =====
+CREATE TABLE IF NOT EXISTS subscribers (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  name VARCHAR(255),
+  active TINYINT(1) DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_email (email),
+  INDEX idx_active (active)
+) ENGINE=InnoDB;
+
+-- ===== ADMINS TABLE =====
+CREATE TABLE IF NOT EXISTS admins (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_email (email)
+) ENGINE=InnoDB;
+
+-- ===== ADMIN NOTIFICATIONS TABLE =====
+CREATE TABLE IF NOT EXISTS admin_notifications (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  type VARCHAR(50) NOT NULL,
+  message TEXT,
+  data JSON,
+  `read` TINYINT(1) DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_read (`read`),
+  INDEX idx_type (type),
+  INDEX idx_created_at (created_at)
+) ENGINE=InnoDB;

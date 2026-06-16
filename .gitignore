@@ -1,0 +1,11 @@
+# Local environment configuration
+.env
+
+# Composer dependencies
+vendor/
+composer.phar
+Composer-Setup.exe
+
+# OS generated files
+.DS_Store
+Thumbs.db
