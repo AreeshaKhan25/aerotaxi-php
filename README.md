@@ -1,8 +1,28 @@
-# AeroTAXI - Classical PHP Translation
+<p align="center">
+  <img src="public/images/Poster.png" alt="AeroTAXI Banner" width="100%">
+</p>
 
-Complete 1:1 port of the Laravel AeroTAXI application into classical PHP.
+<h1 align="center">AeroTAXI — Classical PHP Edition</h1>
 
-## Quick Start
+<p align="center">
+  A complete 1:1 port of the Laravel AeroTAXI application into classical PHP.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/PHP-8.x-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP">
+  <img src="https://img.shields.io/badge/MySQL-Database-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL">
+  <img src="https://img.shields.io/badge/Stripe-Payments-008CDD?style=flat-square&logo=stripe&logoColor=white" alt="Stripe">
+  <img src="https://img.shields.io/badge/TailwindCSS-UI-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/License-Same%20as%20original-lightgrey?style=flat-square" alt="License">
+</p>
+
+---
+
+## 📖 Overview
+
+AeroTAXI (Classical PHP Edition) mirrors the structure and behavior of the original Laravel application using plain PHP, PDO, and a lightweight custom router — no framework dependencies required.
+
+## 🚀 Quick Start
 
 ### 1. Database Setup
 
@@ -19,7 +39,7 @@ mysql -u root -p aerotaxi < setup/seed.sql
 Edit `config/config.php` with your settings:
 
 - Database credentials (host, name, user, password)
-- Stripe keys (pk_test_xxx, sk_test_xxx)
+- Stripe keys (`pk_test_xxx`, `sk_test_xxx`)
 - AviationStack API key
 - Admin email for notifications
 - Tawk.to property ID
@@ -34,9 +54,9 @@ php -S localhost:8000
 # Or use Apache/Nginx with the .htaccess rules
 ```
 
-Visit: `http://localhost:8000`
+Visit: **http://localhost:8000**
 
-## Project Structure
+## 🗂️ Project Structure
 
 ```
 aerotaxi-php/
@@ -49,7 +69,7 @@ aerotaxi-php/
 ├── public/
 │   ├── index.php               # Front controller
 │   ├── .htaccess               # Apache rewrite rules
-│   ├── css/app.css            # Tailwind overrides
+│   ├── css/app.css             # Tailwind overrides
 │   └── images/                 # Copy from Laravel project
 ├── pages/
 │   ├── home.php                # Homepage with booking form
@@ -101,11 +121,11 @@ aerotaxi-php/
     └── seed.sql
 ```
 
-## Implementation Guides
+## 📚 Implementation Guides
 
 ### Authentication System
 
-Session-based authentication for admin panel. Stores `admin_id` in `$_SESSION`:
+Session-based authentication for the admin panel. Stores `admin_id` in `$_SESSION`:
 
 ```php
 // Check if authenticated
@@ -271,9 +291,9 @@ header('Content-Type: application/json');
 echo json_encode(['results' => $results]);
 ```
 
-## Key Features Implemented
+## ✨ Key Features Implemented
 
-✅ **Public Pages**
+**Public Pages**
 
 - Home (with booking form & location autocomplete)
 - Coverage (airport list)
@@ -282,7 +302,7 @@ echo json_encode(['results' => $results]);
 - Booking flow (4-step booking process)
 - Booking lookup (search by reference)
 
-✅ **Admin Panel**
+**Admin Panel**
 
 - Login/logout
 - Dashboard with stats
@@ -291,83 +311,85 @@ echo json_encode(['results' => $results]);
 - Contact messages
 - Subscriber management
 
-✅ **API Endpoints**
+**API Endpoints**
 
 - Airport search (autocomplete)
 - Flight validation (AviationStack)
 - Contact form submission
 
-✅ **Integrations**
+**Integrations**
 
 - Stripe payments
 - AviationStack flight validation
 - Nominatim (address/location search)
 - Tawk.to live chat
 
-## Frontend Libraries
+## 🧰 Frontend Libraries
 
-- **Tailwind CSS** - Utility-first CSS via CDN
-- **Alpine.js** - Lightweight reactive JavaScript
-- **Leaflet.js** - Interactive maps
-- **Font Awesome** - Icons
+- **Tailwind CSS** — Utility-first CSS via CDN
+- **Alpine.js** — Lightweight reactive JavaScript
+- **Leaflet.js** — Interactive maps
+- **Font Awesome** — Icons
 
-## Database Credentials
+## 🔐 Database Credentials
 
-Default admin account (created by seed.sql):
+Default admin account (created by `seed.sql`):
 
 - Email: `admin@aerotaxi.com`
 - Password: `admin123` (hash: `$2y$12$afPr0iTAB/nrZYMb5iHcEO/4dn6mqZ4HZLMq5vwjeDxwPzNVoicZK`)
 
-## Common Patterns
+> ⚠️ Change these credentials before deploying to production.
 
-### Redirect with Message
+## 🧩 Common Patterns
+
+**Redirect with Message**
 
 ```php
 redirect_with_message(url('/admin/stats'), 'success', 'Booking updated successfully');
 ```
 
-### Price Formatting
+**Price Formatting**
 
 ```php
 echo format_price($booking['total_price']); // Outputs: £45.50
 ```
 
-### Date Formatting
+**Date Formatting**
 
 ```php
 echo format_date($booking['depart_date']); // Outputs: 15 Jun 2026
 ```
 
-### Generate CSRF Token
+**Generate CSRF Token**
 
 ```php
 echo csrf_field(); // Outputs: <input type="hidden" name="_csrf_token" value="...">
 ```
 
-## Deployment Notes
+## 📦 Deployment Notes
 
 ### Production Checklist
 
-- [ ] Update `APP_DEBUG` to `false` in config.php
+- [ ] Update `APP_DEBUG` to `false` in `config.php`
 - [ ] Generate strong CSRF token length (32 bytes default)
 - [ ] Set up proper error logging
 - [ ] Configure Stripe keys (production keys, not test keys)
 - [ ] Set up AviationStack API key
-- [ ] Configure email sending (SMTP or mail())
-- [ ] Set SESSION_LIFETIME appropriately
-- [ ] Copy images/ directory from Laravel project
-- [ ] Verify .htaccess is working (or configure nginx)
+- [ ] Configure email sending (SMTP or `mail()`)
+- [ ] Set `SESSION_LIFETIME` appropriately
+- [ ] Copy `images/` directory from Laravel project
+- [ ] Verify `.htaccess` is working (or configure nginx)
 - [ ] Test all routes and integrations
 
 ### Email Sending
 
 Currently uses PHP's `mail()` function. For production SMTP, use PHPMailer:
 
-```php
-// Install via Composer
+```bash
 composer require phpmailer/phpmailer
+```
 
-// Send email
+```php
 $mail = new PHPMailer(true);
 $mail->isSMTP();
 $mail->Host = 'smtp.example.com';
@@ -381,7 +403,7 @@ $mail->Body = 'Your booking is confirmed...';
 $mail->send();
 ```
 
-## Testing
+## 🧪 Testing
 
 ```bash
 # Check PHP syntax
@@ -398,12 +420,12 @@ curl http://localhost:8000/
 curl http://localhost:8000/api/airports/search?q=london
 ```
 
-## Migration from Laravel
+## 🔄 Migration from Laravel
 
 The structure mirrors the Laravel version exactly:
 
 | Laravel                   | Classical PHP                                 |
-| ------------------------- | --------------------------------------------- |
+| -------------------------- | --------------------------------------------- |
 | `routes/web.php`          | `core/router.php` + `public/index.php`        |
 | `app/Http/Controllers/*`  | `pages/*` + `admin/*` + `api/*` + `actions/*` |
 | `resources/views/*`       | `pages/*` + `templates/*`                     |
@@ -413,7 +435,7 @@ The structure mirrors the Laravel version exactly:
 | Blade templating          | PHP includes                                  |
 | Laravel validation        | Custom `validate()` function                  |
 
-## Support & Documentation
+## 📄 Support & Documentation
 
 For detailed implementation of specific pages, refer to the Laravel source:
 
@@ -423,6 +445,10 @@ For detailed implementation of specific pages, refer to the Laravel source:
 
 All UI/UX is preserved exactly from the Laravel version using Tailwind CSS and Alpine.js.
 
-## License
+## 📜 License
 
 Same as original AeroTAXI project.
+
+---
+
+<p align="center">Made with ❤️ using PHP, MySQL, and Tailwind CSS</p>
